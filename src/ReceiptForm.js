@@ -10,8 +10,8 @@ const endpoint = "https://baba.cognitiveservices.azure.com/";
 
 function ReceiptForm() {
   const [image, setImage] = useState(null);
-  const [receipt, setItems] = useState([]);
-  const [status, setStatus] = useState("Upload image");
+  const [receipt, setItems] = useState(null);
+  const [isProcessed, setStatus] = useState(false);
 
   const handleChange = (event) => {
     setImage(event.target.files[0]);
@@ -20,7 +20,8 @@ function ReceiptForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setStatus("Processing image");
+    setStatus(true);
+    setItems(null);
 
     // Send image to backend here
     const formData = new FormData();
@@ -51,6 +52,7 @@ function ReceiptForm() {
       //   }
       // }
       setItems(Receipt);
+      setStatus(false);
     } else {
       throw new Error("Expected at least one receipt in the result.");
     }
@@ -58,7 +60,7 @@ function ReceiptForm() {
 
   return (
     <div>
-      {receipt.Items ? receipt.Items.values.map((item) => (
+      {receipt ? receipt.Items.values.map((item) => (
         <div key={item.properties.Description.content}>
           <p>Opis: {item.properties.Description.content}</p>
           <p>Kolicina: {item.properties.Quantity.content}</p>
@@ -66,12 +68,12 @@ function ReceiptForm() {
           <p>Ukupno: {item.properties.TotalPrice.content}</p>
           <hr />
         </div>
-      )) : <InfinitySpin
+      )) : <div></div>
+      }
+      {isProcessed ? <InfinitySpin
         width='200'
         color="#f34f1c"
-      />
-      }
-      {receipt.Items ? <div></div> : <p>{status}</p> }
+      /> : <div></div>}
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleChange} />
         <button type="submit">Submit</button>
