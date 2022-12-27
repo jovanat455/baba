@@ -71,9 +71,11 @@ function ReceiptForm() {
     <div>
       {error ?
         <div className="alert">
-          Nešto se zajebalo :(
+          <img src={`${process.env.PUBLIC_URL}/assets/images/oops.gif`} className="oopsImage" alt="oops..." />
+          <p>Oops! Something went wrong.</p>
+          <p>Please try again.</p>
         </div> : <div></div>}
-      {receipt ? receipt.Items.values.map((item) => (
+      {receipt && receipt.Items ? receipt.Items.values.map((item) => (
         <div key={item.properties.Description.content}>
           <p>Opis: {item.properties.Description.content}</p>
           <p>Kolicina: {item.properties.Quantity.content}</p>
