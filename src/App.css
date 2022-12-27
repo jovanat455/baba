@@ -32,7 +32,23 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.alert {
+  padding: 20px;
+  background-color: #272727;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.oopsImage {
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: cover;
 }
