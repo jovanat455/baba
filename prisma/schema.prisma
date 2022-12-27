@@ -7,18 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model Meals {
-  Name  String @db.VarChar(50)
-  Price Float  @db.Money
+  Name  String? @db.VarChar(255)
+  Price String? @db.VarChar(255)
+  ID    String  @id(map: "PK__Meals__3214EC270E28719C") @db.VarChar(255)
 
   @@ignore
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model Test {
   PersonID  Int?
@@ -28,13 +24,11 @@ model Test {
   @@ignore
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model Users {
-  Name    String @db.VarChar(50)
-  Surname String @db.VarChar(50)
-  Mail    String @db.VarChar(50)
+  Name    String? @db.VarChar(50)
+  Surname String? @db.VarChar(50)
+  Mail    String? @db.VarChar(255)
+  ID      String  @id(map: "PK__Users__3214EC27320A1069") @db.VarChar(255)
 
   @@ignore
 }
