@@ -1,7 +1,6 @@
 // This form includes an input field of type `file`, which allows the user to select an image file.
 // The `handleChange` event handler updates the `image` state variable with the selected file.
 // The `handleSubmit` event handler prevents the default form submission behavior and can be used to send the selected image to the backend.
-import { InfinitySpin } from 'react-loader-spinner'
 import React, { useState } from 'react';
 const { AzureKeyCredential, DocumentAnalysisClient } = require("@azure/ai-form-recognizer");
 
@@ -75,7 +74,7 @@ function ReceiptForm() {
           <p>Oops! Something went wrong.</p>
           <p>Please try again.</p>
         </div> : <div></div>}
-      {receipt && receipt.Items ? receipt.Items.values.map((item) => (
+      {receipt && receipt.Items && receipt.Items.values.length > 0 ? receipt.Items.values.map((item) => (
         <div key={item.properties.Description.content}>
           <p>Opis: {item.properties.Description.content}</p>
           <p>Kolicina: {item.properties.Quantity.content}</p>
@@ -85,10 +84,7 @@ function ReceiptForm() {
         </div>
       )) : <div></div>
       }
-      {isProcessed ? <InfinitySpin
-        width='200'
-        color="#f34f1c"
-      /> : <div></div>}
+      {isProcessed ? <img src={`${process.env.PUBLIC_URL}/assets/images/baba-loading.gif`} className="loader" alt="oops..." /> : <div></div>}
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleChange} />
         <button type="submit">Submit</button>
@@ -96,5 +92,10 @@ function ReceiptForm() {
     </div>
   );
 }
-
+/*
+<InfinitySpin
+        width='200'
+        color="#f34f1c"
+      />
+*/
 export default ReceiptForm;
