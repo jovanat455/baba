@@ -12,6 +12,7 @@ function ReceiptForm() {
   const [image, setImage] = useState(null);
   const [receipt, setItems] = useState(null);
   const [isProcessed, setStatus] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleChange = (event) => {
     setImage(event.target.files[0]);
@@ -21,6 +22,7 @@ function ReceiptForm() {
     event.preventDefault();
 
     setStatus(true);
+    setError(false);
     setItems(null);
 
     // Send image to backend here
@@ -35,6 +37,13 @@ function ReceiptForm() {
       documents: [result]
     } = await poller.pollUntilDone();
 
+    if (result === undefined) {
+      setError(true);
+      setStatus(false);
+      return;
+    }
+
+    console.log("Type:", result.docType);
     if (result) {
       let Receipt = {
         Items: result.fields.Items,
@@ -60,6 +69,10 @@ function ReceiptForm() {
 
   return (
     <div>
+      {error ?
+        <div className="alert">
+          Nešto se zajebalo :(
+        </div> : <div></div>}
       {receipt ? receipt.Items.values.map((item) => (
         <div key={item.properties.Description.content}>
           <p>Opis: {item.properties.Description.content}</p>
