@@ -87,7 +87,7 @@ function ReceiptForm() {
       {isProcessed ? <img src={`${process.env.PUBLIC_URL}/assets/images/baba-loading.gif`} className="loader" alt="oops..." /> : <div></div>}
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleChange} />
-        <button type="submit">Submit</button>
+        <button class="rgbButton">Submit</button>
       </form>
     </div>
   );
