@@ -42,7 +42,12 @@ function ReceiptForm() {
       return;
     }
 
-    console.log("Type:", result.docType);
+    if (!result.fields.Items) {
+      setError(true);
+      setStatus(false);
+      return;
+    }
+
     if (result) {
       let Receipt = {
         Items: result.fields.Items,
@@ -87,7 +92,7 @@ function ReceiptForm() {
       {isProcessed ? <img src={`${process.env.PUBLIC_URL}/assets/images/baba-loading.gif`} className="loader" alt="oops..." /> : <div></div>}
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleChange} />
-        <button class="rgbButton">Submit</button>
+        <button className="rgbButton">Submit</button>
       </form>
     </div>
   );
