@@ -2,6 +2,7 @@
 // The `handleChange` event handler updates the `image` state variable with the selected file.
 // The `handleSubmit` event handler prevents the default form submission behavior and can be used to send the selected image to the backend.
 import React, { useState } from 'react';
+import './ReceiptScanner.css'
 const { AzureKeyCredential, DocumentAnalysisClient } = require("@azure/ai-form-recognizer");
 
 const key = "79116af525cf49efa4d99e1deaf9fa90";
@@ -72,7 +73,7 @@ function ReceiptForm() {
   }
 
   return (
-    <div>
+    <div className='ReceiptScanner'>
       {error ?
         <div className="alert">
           <img src={`${process.env.PUBLIC_URL}/assets/images/oops.gif`} className="oopsImage" alt="oops..." />

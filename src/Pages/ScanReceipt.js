@@ -1,10 +1,10 @@
 import React from "react";
-import ReceiptForm from '../ReceiptForm';
+import ReceiptForm from '../components/ReceiptScanner';
 
 function ScanReceipt() {
-    return(
-              <ReceiptForm /> 
-    );
+  return (
+    <ReceiptForm />
+  );
 }
 
-export  default ScanReceipt;
+export default ScanReceipt;
