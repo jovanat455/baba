@@ -1,13 +1,25 @@
 import './App.css';
 import ScanReceipt from './pages/ScanReceipt';
-import NavBar from './components/Navbar';
+import AddOrder from './pages/AddOrder';
+import NotFound from './pages/NotFound';
+
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+
+import NavBarLayout from './components/NavBarLayout';
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<NavBarLayout />} >
+            <Route path='/' element={<ScanReceipt />} />
+            <Route path='AddOrder' element={<AddOrder />} />
+            <Route path='*' element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
       <header className="App-header">
-        <ScanReceipt />
       </header>
     </div>
   );
