@@ -1,0 +1,23 @@
+.addOrderCheck {
+    color: black;
+    background-color: white;
+    align-items: center;
+    -webkit-text-fill-color: black;
+    max-width: 200px;
+  }
+
+.addOrderSelect {
+    align-items: center;
+    max-width: 200px;
+}
+
+.addOrderTextField {
+    align-items: center;
+    max-width: 200px;
+}
+
+.AddOrder {
+    color: whitesmoke;
+    align-items: center;
+    max-width: 400px;
+}
