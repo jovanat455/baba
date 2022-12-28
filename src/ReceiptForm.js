@@ -92,10 +92,4 @@ function ReceiptForm() {
     </div>
   );
 }
-/*
-<InfinitySpin
-        width='200'
-        color="#f34f1c"
-      />
-*/
 export default ReceiptForm;
