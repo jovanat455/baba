@@ -13,7 +13,7 @@ const { AzureKeyCredential, DocumentAnalysisClient } = require("@azure/ai-form-r
 const key = "79116af525cf49efa4d99e1deaf9fa90";
 const endpoint = "https://baba.cognitiveservices.azure.com/";
 
-const mealsApi = "https://babadb20221229134825.azurewebsites.net/api/GetMealsMock?code=RGhfdR2luMu-0N-9Pp94Q-ddW_JFE2AZrCfiTPVWGZjDAzFu3UiVSA==";
+const mealsApi = "https://babadb20221229134825.azurewebsites.net/api/GetMeals?code=jrVJdFzLX-5juwuMYcBrSAT5REiJ5qHtbFwkuDZHLnXiAzFuMfY96w==";
 
 function ReceiptForm() {
   const [image, setImage] = useState(null);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './StartOrder.css';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
