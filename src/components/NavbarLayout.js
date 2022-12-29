@@ -12,8 +12,8 @@ const NavBarLayout = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Link to="/">Home</Link>
-              <Link to="/AddOrder">Add Order</Link>
+              <Link to="/" className="menuList">Home</Link>
+              <Link to="/AddOrder" className="menuList">Add Order</Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
