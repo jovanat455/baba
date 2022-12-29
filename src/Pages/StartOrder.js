@@ -13,7 +13,7 @@ function StartOrder() {
             <img src={`${process.env.PUBLIC_URL}/assets/images/startEngines.gif`} className="oopsImage" alt="oops..." />
             <form onSubmit={handleSubmit}>
                 <Form.Control placeholder="Your name here" className="addOrderTextField" />
-                <button className="rgbButton">Ready...Set...GO!</button>
+                <button className="rgbButton">Done!</button>
             </form>
         </div>
   );
