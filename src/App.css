@@ -138,15 +138,13 @@
 
 .menuList {
   display: block;
-  color: white;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  border-left: 1px solid rgb(105, 101, 101);
-  border-right: 1px solid rgb(105, 101, 101);
 }
 
 .menuList:hover {
-  background-color: rgba(61, 60, 60, 0.5);
-  color: #61dafb;
+  background-color: #ef3e4c;
+  color: white;
 }
