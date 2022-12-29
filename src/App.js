@@ -1,6 +1,7 @@
 import './App.css';
 import ScanReceipt from './pages/ScanReceipt';
 import AddOrder from './pages/AddOrder';
+import StartOrder from './pages/StartOrder';
 import NotFound from './pages/NotFound';
 import Container from 'react-bootstrap/Container';
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<NavBarLayout />} >
             <Route path='/' element={<ScanReceipt />} />
             <Route path='AddOrder' element={<AddOrder />} />
+            <Route path='StartOrder' element={<StartOrder />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

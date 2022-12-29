@@ -14,6 +14,7 @@ const NavBarLayout = () => {
             <Nav className="me-auto">
               <Link to="/" className="menuList">Home</Link>
               <Link to="/AddOrder" className="menuList">Add Order</Link>
+              <Link to="/StartOrder" className="menuList">Start Order</Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
