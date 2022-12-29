@@ -57,14 +57,6 @@ function ReceiptForm() {
         TransactionTime: result.fields.TransactionTime,
       }
 
-      // for (const item of (Receipt.Items && Receipt.Items.values) || []) {
-      //   let Item = {
-      //     Description: item.properties.Description.content,
-      //     Quantity: item.properties.Quantity.content,
-      //     Price: item.properties.Price.content,
-      //     TotalPrice: item.properties.TotalPrice.content,
-      //   }
-      // }
       setItems(Receipt);
       setStatus(false);
     } else {
@@ -73,7 +65,7 @@ function ReceiptForm() {
   }
 
   return (
-    <div className='ReceiptScanner'>
+    <div>
       {error ?
         <div className="alert">
           <img src={`${process.env.PUBLIC_URL}/assets/images/oops.gif`} className="oopsImage" alt="oops..." />
@@ -86,7 +78,7 @@ function ReceiptForm() {
           <p>Kolicina: {item.properties.Quantity.content}</p>
           <p>Cena: {item.properties.Price.content}</p>
           <p>Ukupno: {item.properties.TotalPrice.content}</p>
-          <hr />
+          <hr align='center'/>
         </div>
       )) : <div></div>
       }

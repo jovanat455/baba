@@ -5,7 +5,7 @@ import NotFound from './pages/NotFound';
 
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
-import NavBarLayout from './components/NavBarLayout';
+import NavBarLayout from './components/NavbarLayout';
 
 function App() {
   return (
