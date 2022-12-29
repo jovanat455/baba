@@ -1,0 +1,9 @@
+.StartOrder {
+    color: whitesmoke;
+    align-items: center;
+}
+
+.StartOrderForm {
+    max-width: 400px;
+    margin: 0 auto;
+}
