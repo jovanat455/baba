@@ -4,11 +4,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
 
 function AddOrder() {
+
   return (
-    <div className="AddOrder">
-      <Form>
+    <Container className="AddOrder">
+      <Form className='AddOrderForm'>
         <Row>
           <img src={`${process.env.PUBLIC_URL}/assets/images/order.gif`} className="orderImage" alt="takeOrder" />
         </Row>
@@ -61,7 +63,7 @@ function AddOrder() {
           Done
         </Button>
       </Form>
-    </div>
+    </Container>
   );
 }
 

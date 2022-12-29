@@ -2,6 +2,7 @@ import './App.css';
 import ScanReceipt from './pages/ScanReceipt';
 import AddOrder from './pages/AddOrder';
 import NotFound from './pages/NotFound';
+import Container from 'react-bootstrap/Container';
 
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
@@ -9,7 +10,7 @@ import NavBarLayout from './components/NavbarLayout';
 
 function App() {
   return (
-    <div className="App">
+    <Container className="App" fluid>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<NavBarLayout />} >
@@ -21,7 +22,7 @@ function App() {
       </BrowserRouter>
       <header className="App-header">
       </header>
-    </div>
+    </Container>
   );
 }
 

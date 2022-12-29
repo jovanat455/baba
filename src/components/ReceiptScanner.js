@@ -3,6 +3,7 @@
 // The `handleSubmit` event handler prevents the default form submission behavior and can be used to send the selected image to the backend.
 import React, { useState } from 'react';
 import './ReceiptScanner.css'
+import Form from 'react-bootstrap/Form';
 const { AzureKeyCredential, DocumentAnalysisClient } = require("@azure/ai-form-recognizer");
 
 const key = "79116af525cf49efa4d99e1deaf9fa90";
@@ -83,10 +84,10 @@ function ReceiptForm() {
       )) : <div></div>
       }
       {isProcessed ? <img src={`${process.env.PUBLIC_URL}/assets/images/baba-loading.gif`} className="loader" alt="oops..." /> : <div></div>}
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <input type="file" onChange={handleChange} />
         <button className="rgbButton">Submit</button>
-      </form>
+      </Form>
     </div>
   );
 }

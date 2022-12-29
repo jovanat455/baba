@@ -7,28 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Meals {
-  Name  String? @db.VarChar(255)
-  Price String? @db.VarChar(255)
-  ID    String  @id(map: "PK__Meals__3214EC270E28719C") @db.VarChar(255)
-
-  @@ignore
+model Meal {
+  ID       Int     @id(map: "PK_Meal")
+  Owner    String? @db.NVarChar(Max)
+  ID_item  String? @db.NVarChar(Max)
+  Amout    Int?
+  MealName String? @db.NVarChar(Max)
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model Test {
-  PersonID  Int?
-  LastName  String? @db.VarChar(255)
-  FirstName String? @db.VarChar(255)
-
-  @@ignore
+model MealName {
+  ID       Int     @id(map: "PK_MealName")
+  MealName String? @db.NVarChar(Max)
 }
 
-model Users {
-  Name    String? @db.VarChar(50)
-  Surname String? @db.VarChar(50)
-  Mail    String? @db.VarChar(255)
-  ID      String  @id(map: "PK__Users__3214EC27320A1069") @db.VarChar(255)
-
-  @@ignore
+model Order {
+  ID      DateTime @id(map: "PK_Order") @db.Date
+  Owner   String?  @db.VarChar(Max)
+  Receipt String?  @db.VarChar(Max)
 }
