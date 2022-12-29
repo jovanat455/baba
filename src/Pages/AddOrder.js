@@ -59,9 +59,9 @@ function AddOrder() {
             </Form.Select>
           </Col>
         </Row>
-        <Button variant="primary" type="submit" className="rgbButton">
+        <button variant="primary" type="submit" className="rgbButton">
           Done
-        </Button>
+        </button>
       </Form>
     </Container>
   );
