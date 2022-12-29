@@ -1,10 +1,11 @@
 import React from "react";
+import Container from 'react-bootstrap/Container';
 
 function NotFound() {
   return (
-    <div>
-      <h1>Page Not Found</h1>
-    </div>
+    <Container className='StartOrder'>
+      <img src={`${process.env.PUBLIC_URL}/assets/images/404.webp`} alt="Page not found" />
+    </Container>
   );
 }
 
