@@ -3,12 +3,17 @@
 // The `handleSubmit` event handler prevents the default form submission behavior and can be used to send the selected image to the backend.
 import React, { useState } from 'react';
 import './ReceiptScanner.css'
+import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
+import Image from "react-bootstrap/Image";
+import Alert from 'react-bootstrap/Alert';
 const { AzureKeyCredential, DocumentAnalysisClient } = require("@azure/ai-form-recognizer");
 
 const key = "79116af525cf49efa4d99e1deaf9fa90";
 const endpoint = "https://baba.cognitiveservices.azure.com/";
+
+const mealsApi = "https://babadb20221229134825.azurewebsites.net/api/GetMealsMock?code=RGhfdR2luMu-0N-9Pp94Q-ddW_JFE2AZrCfiTPVWGZjDAzFu3UiVSA==";
 
 function ReceiptForm() {
   const [image, setImage] = useState(null);
@@ -27,52 +32,62 @@ function ReceiptForm() {
     setError(false);
     setItems(null);
 
-    // Send image to backend here
-    const formData = new FormData();
-    formData.append('image', image);
+    let meals = await axios.get(mealsApi);
+    console.log(meals.data);
 
-    const client = new DocumentAnalysisClient(endpoint, new AzureKeyCredential(key));
+    if (image) {
+      // Send image to backend here
+      const formData = new FormData();
+      formData.append('image', image);
 
-    const poller = await client.beginAnalyzeDocument("prebuilt-receipt", image);
+      const client = new DocumentAnalysisClient(endpoint, new AzureKeyCredential(key));
 
-    const {
-      documents: [result]
-    } = await poller.pollUntilDone();
+      const poller = await client.beginAnalyzeDocument("prebuilt-receipt", image);
 
-    if (result === undefined) {
-      setError(true);
-      setStatus(false);
-      return;
-    }
+      const {
+        documents: [result]
+      } = await poller.pollUntilDone();
 
-    if (!result.fields.Items) {
-      setError(true);
-      setStatus(false);
-      return;
-    }
-
-    if (result) {
-      let Receipt = {
-        Items: result.fields.Items,
-        Total: result.fields.Total,
-        TransactionDate: result.fields.TransactionDate,
-        TransactionTime: result.fields.TransactionTime,
+      if (result === undefined) {
+        setError(true);
+        setStatus(false);
+        return;
       }
 
-      setItems(Receipt);
-      setStatus(false);
+      if (!result.fields.Items) {
+        setError(true);
+        setStatus(false);
+        return;
+      }
+
+      if (result) {
+        let Receipt = {
+          Items: result.fields.Items,
+          Total: result.fields.Total,
+          TransactionDate: result.fields.TransactionDate,
+          TransactionTime: result.fields.TransactionTime,
+        }
+
+        setItems(Receipt);
+        setStatus(false);
+      } else {
+        throw new Error("Expected at least one receipt in the result.");
+      }
     } else {
-      throw new Error("Expected at least one receipt in the result.");
+      setError(true);
+      setStatus(false);
     }
   }
 
   return (
     <Container className='p-3'>
+      <h1 className="mb-3">Receipt scanner</h1>
       {error ?
-        <div className="alert">
-          <img src={`${process.env.PUBLIC_URL}/assets/images/oops.gif`} className="oopsImage" alt="oops..." />
-          <p>Oops! Something went wrong.</p>
-          <p>Please try again.</p>
+        <div>
+          <Alert variant="danger" onClose={() => setError(false)} dismissible>
+            <Image src={`${process.env.PUBLIC_URL}/assets/images/oops.gif`} className="oopsImage" alt="oops..." fluid />
+            <Alert.Heading className='mt-3'>Oh snap! You got an error! Try again, I guess...</Alert.Heading>
+          </Alert>
         </div> : <div></div>}
       {receipt && receipt.Items && receipt.Items.values.length > 0 ? receipt.Items.values.map((item) => (
         <div key={item.properties.Description.content}>
@@ -84,11 +99,15 @@ function ReceiptForm() {
         </div>
       )) : <div></div>
       }
-      {isProcessed ? <img src={`${process.env.PUBLIC_URL}/assets/images/baba-loading.gif`} className="loader" alt="oops..." /> : <div></div>}
-      <Form onSubmit={handleSubmit}>
+      {isProcessed ? <Image src={`${process.env.PUBLIC_URL}/assets/images/baba-loading.gif`} className="loader" alt="Baba loading..." /> : <div></div>}
+      <Form onSubmit={handleSubmit} className='p-3'>
         <input type="file" onChange={handleChange} />
-        <button className="rgbButton">Submit</button>
+        <button className="rgbButton mt-3">Submit</button>
       </Form>
+
+      <Container>
+
+      </Container>
     </Container>
   );
 }

@@ -1,7 +1,6 @@
 import './AddOrder.css';
 import React from "react";
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
@@ -11,11 +10,9 @@ function AddOrder() {
 
   return (
     <Container className="AddOrder p-3">
+      <h1 className="mb-3">Add your order</h1>
+      <Image src={`${process.env.PUBLIC_URL}/assets/images/order.gif`} className="mb-3" alt="Add your order" fluid />
       <Form className='AddOrderForm'>
-        <Form.Group className="mb-3">
-          <Image src={`${process.env.PUBLIC_URL}/assets/images/order.gif`} className="orderImage" alt="takeOrder" fluid/>
-        </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Control placeholder="Username" className="addOrderTextField" />
         </Form.Group>

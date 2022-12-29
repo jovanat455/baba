@@ -11,7 +11,8 @@ function StartOrder() {
 
   return (
     <Container className='StartOrder p-3'>
-      <Image src={`${process.env.PUBLIC_URL}/assets/images/startEngines.gif`} className="mb-3" alt="oops..." fluid/>
+      <h1 className="mb-3">Start your order</h1>
+      <Image src={`${process.env.PUBLIC_URL}/assets/images/startEngines.gif`} className="mb-3" alt="Start ordering" fluid/>
       <Form onSubmit={handleSubmit} className='StartOrderForm mb-3'>
         <Form.Control placeholder="Your name here" className="addOrderTextField mb-3" />
         <button className="rgbButton mb-3">Ready...Set...GO!</button>
