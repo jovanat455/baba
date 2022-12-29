@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import './ReceiptScanner.css'
 import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
 const { AzureKeyCredential, DocumentAnalysisClient } = require("@azure/ai-form-recognizer");
 
 const key = "79116af525cf49efa4d99e1deaf9fa90";
@@ -66,7 +67,7 @@ function ReceiptForm() {
   }
 
   return (
-    <div>
+    <Container className='p-3'>
       {error ?
         <div className="alert">
           <img src={`${process.env.PUBLIC_URL}/assets/images/oops.gif`} className="oopsImage" alt="oops..." />
@@ -79,7 +80,7 @@ function ReceiptForm() {
           <p>Kolicina: {item.properties.Quantity.content}</p>
           <p>Cena: {item.properties.Price.content}</p>
           <p>Ukupno: {item.properties.TotalPrice.content}</p>
-          <hr align='center'/>
+          <hr align='center' />
         </div>
       )) : <div></div>
       }
@@ -88,7 +89,7 @@ function ReceiptForm() {
         <input type="file" onChange={handleChange} />
         <button className="rgbButton">Submit</button>
       </Form>
-    </div>
+    </Container>
   );
 }
 export default ReceiptForm;
