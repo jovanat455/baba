@@ -23,6 +23,10 @@ function ReceiptForm() {
 
   const handleChange = (event) => {
     setImage(event.target.files[0]);
+    var input = document.getElementById('file');
+    var output = document.getElementById('fileList');
+
+    output.innerHTML = input.files.item(0).name;
   }
 
   const handleSubmit = async (event) => {
@@ -101,7 +105,12 @@ function ReceiptForm() {
       }
       {isProcessed ? <Image src={`${process.env.PUBLIC_URL}/assets/images/baba-loading.gif`} className="loader" alt="Baba loading..." /> : <div></div>}
       <Form onSubmit={handleSubmit} className='p-3'>
-        <input type="file" onChange={handleChange} />
+        <input type="file" name="file" id="file" class="inputfile" onChange={handleChange} hidden/>
+        <br/>
+        <label for="file"><div className="rgbButton">Choose a file</div></label>
+        <br/><br/>
+        <div className='textBox'>Selected file <div id="fileList"></div></div>
+        <br/>
         <button className="rgbButton mt-3">Submit</button>
       </Form>
 
