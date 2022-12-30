@@ -16,9 +16,10 @@ const NavBarLayout = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <NavLink to="/" className="menuList">Scan Receipt</NavLink>
-              <NavLink to="/AddOrder" className="menuList">Add Order</NavLink>
               <NavLink to="/StartOrder" className="menuList">Start Order</NavLink>
+              <NavLink to="/AddOrder" className="menuList">Add Order</NavLink>
+              <NavLink to="/ViewOrder" className="menuList">View Order</NavLink>
+              <NavLink to="/ScanReceipt" className="menuList">Scan Receipt</NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
