@@ -1,5 +1,6 @@
 import './AddOrder.css';
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -25,6 +26,17 @@ function AddOrder() {
     }
   }
 
+  let navigate = useNavigate();
+
+  const submitForm = (event) =>{ 
+    event.preventDefault();
+
+    // Add meat here
+
+    let path = `/`; 
+    navigate(path);
+  }
+
   return (
 
     <Container className="AddOrder p-3">
@@ -34,75 +46,27 @@ function AddOrder() {
         <Form.Group className="mb-3">
           <Form.Control placeholder="Username" className="addOrderTextField" onSelect={loadOptions}/>
         </Form.Group>
-
-        {meals && meals.length > 0 ? meals.map((item) => (
-        <div key={item.Name}>
-          <Row className="mb-3">
-            <Col>
-              <Form.Check type="checkbox" className="addOrderCheck" label={item.Name} name={"check_" + item.Name} />
-            </Col>
-            <Col>
-              <Form.Select aria-label="PortionSize" size='sm' className="addOrderSelect" defaultValue={2} name={"select_" + item.Name}>
-                <option value="1">x1</option>
-                <option value="2">x2</option>
-                <option value="3">x3</option>
-                <option value="3">x4</option>
-              </Form.Select>
-            </Col>
-          </Row>
-        </div>
-      )) : <div></div>
-      }
-
-
-
-{/* 
-        <Form.Group className="mb-3">
-          <Row className="mb-3">
-            <Col>
-              <Form.Check type="checkbox" className="addOrderCheck" label="Pohovano belo" />
-            </Col>
-            <Col>
-              <Form.Select aria-label="PortionSize" size='sm' className="addOrderSelect" defaultValue={2}>
-                <option>Portion</option>
-                <option value="1">x1</option>
-                <option value="2">x2</option>
-                <option value="3">x3</option>
-                <option value="3">x4</option>
-              </Form.Select>
-            </Col>
-          </Row>
-          <Row className="mb-3">
-            <Col>
-              <Form.Check type="checkbox" className="addOrderCheck" label="Becarac" />
-            </Col>
-            <Col>
-              <Form.Select aria-label="PortionSize" size='sm' className="addOrderSelect" defaultValue={2}>
-                <option>Portion</option>
-                <option value="1">x1</option>
-                <option value="2">x2</option>
-                <option value="3">x3</option>
-                <option value="3">x4</option>
-              </Form.Select>
-            </Col>
-          </Row>
-          <Row className="mb-3">
-            <Col>
-              <Form.Check type="checkbox" className="addOrderCheck" label="Spanac" />
-            </Col>
-            <Col>
-              <Form.Select aria-label="PortionSize" size='sm' className="addOrderSelect" defaultValue={2}>
-                <option>Portion</option>
-                <option value="1">x1</option>
-                <option value="2">x2</option>
-                <option value="3">x3</option>
-                <option value="3">x4</option>
-              </Form.Select>
-            </Col>
-          </Row>
-        </Form.Group> */}
-
-        <button variant="primary" type="submit" className="rgbButton">
+        <Form.Group className="mb-3" name="mealsForm">
+          {meals && meals.length > 0 ? meals.map((item) => (
+          <div key={item.Name}>
+            <Row className="mb-3">
+              <Col>
+                <Form.Check type="checkbox" className="addOrderCheck" label={item.Name} name={"check_" + item.Name} />
+              </Col>
+              <Col>
+                <Form.Select aria-label="PortionSize" size='sm' className="addOrderSelect" defaultValue={2} name={"select_" + item.Name}>
+                  <option value="1">x1</option>
+                  <option value="2">x2</option>
+                  <option value="3">x3</option>
+                  <option value="4">x4</option>
+                </Form.Select>
+              </Col>
+            </Row>
+          </div>
+        )) : <div></div>
+        }
+        </Form.Group>
+        <button variant="primary" type="submit" className="rgbButton" onClick={submitForm}>
           Done
         </button>
       </Form>
