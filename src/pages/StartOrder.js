@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Image from "react-bootstrap/Image";
 
 function StartOrder() {
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   }
@@ -15,7 +16,7 @@ function StartOrder() {
       <Image src={`${process.env.PUBLIC_URL}/assets/images/startEngines.gif`} className="mb-3" alt="Start ordering" fluid/>
       <Form onSubmit={handleSubmit} className='StartOrderForm mb-3'>
         <Form.Control placeholder="Your name here" className="addOrderTextField mb-3" />
-        <button className="rgbButton mb-3">Ready...Set...GO!</button>
+        <button className="rgbButton mb-3">Done</button>
       </Form>
     </Container>
   );

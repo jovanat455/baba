@@ -4,9 +4,7 @@ import AddOrder from './pages/AddOrder';
 import StartOrder from './pages/StartOrder';
 import NotFound from './pages/NotFound';
 import Container from 'react-bootstrap/Container';
-
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-
 import NavBarLayout from './components/NavbarLayout';
 
 function App() {
