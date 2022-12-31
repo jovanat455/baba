@@ -28,12 +28,12 @@ function AddOrder() {
 
   let navigate = useNavigate();
 
-  const submitForm = (event) =>{ 
+  const submitForm = (event) =>{
     event.preventDefault();
 
     // Add meat here
 
-    let path = `/`; 
+    let path = `/`;
     navigate(path);
   }
 
@@ -54,11 +54,12 @@ function AddOrder() {
                 <Form.Check type="checkbox" className="addOrderCheck" label={item.Name} name={"check_" + item.Name} />
               </Col>
               <Col>
-                <Form.Select aria-label="PortionSize" size='sm' className="addOrderSelect" defaultValue={2} name={"select_" + item.Name}>
-                  <option value="1">x1</option>
-                  <option value="2">x2</option>
-                  <option value="3">x3</option>
-                  <option value="4">x4</option>
+                <Form.Select aria-label="PortionSize" size='sm' className="addOrderSelect" defaultValue={0} name={"select_" + item.Name}>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
                 </Form.Select>
               </Col>
             </Row>
