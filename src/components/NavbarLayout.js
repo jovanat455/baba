@@ -20,6 +20,7 @@ const NavBarLayout = () => {
               <NavLink to="/AddOrder" className="menuList">Add Order</NavLink>
               <NavLink to="/ViewOrder" className="menuList">View Order</NavLink>
               <NavLink to="/ScanReceipt" className="menuList">Scan Receipt</NavLink>
+              <NavLink to="/ManualOrder" className="menuList">Manual Order</NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>

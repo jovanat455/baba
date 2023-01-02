@@ -1,0 +1,23 @@
+.styled-table {
+    border-collapse: collapse;
+    background: linear-gradient(45deg, #90e8e539, #8b749a26);
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    table-layout: fixed;
+    width: 100%;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 5px 15px;
+}
+
+.input {
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+}

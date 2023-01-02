@@ -3,6 +3,7 @@ import StartOrder from './pages/StartOrder';
 import AddOrder from './pages/AddOrder';
 import ViewOrder from './pages/ViewOrder';
 import ScanReceipt from './pages/ScanReceipt';
+import ManualOrder from './pages/ManualOrder';
 import NotFound from './pages/NotFound';
 import Container from 'react-bootstrap/Container';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
@@ -18,6 +19,7 @@ function App() {
             <Route path='AddOrder' element={<AddOrder />} />
             <Route path='ViewOrder' element={<ViewOrder />} />
             <Route path='ScanReceipt' element={<ScanReceipt />} />
+            <Route path='ManualOrder' element={<ManualOrder />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
