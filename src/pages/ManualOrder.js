@@ -8,7 +8,10 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 
 // TODO: Set API to read from ManualOrder table
+//const viewOrderApi = "https://babadb20221229134825.azurewebsites.net/api/GetOrderedMeals?code=QDSnUB6KCaBplqPsnWvwg-2DhkGfoi1DA_ncvBrhA9N-AzFufGdRMQ==";
+
 const viewOrderApi = "https://babadb20221229134825.azurewebsites.net/api/GetMeals?code=jrVJdFzLX-5juwuMYcBrSAT5REiJ5qHtbFwkuDZHLnXiAzFuMfY96w==";
+
 var uniqueID = 1;
 var customersPrice = 0;
 

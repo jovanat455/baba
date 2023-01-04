@@ -14,6 +14,8 @@ const key = "79116af525cf49efa4d99e1deaf9fa90";
 const endpoint = "https://baba.cognitiveservices.azure.com/";
 
 const mealsApi = "https://babadb20221229134825.azurewebsites.net/api/GetMeals?code=jrVJdFzLX-5juwuMYcBrSAT5REiJ5qHtbFwkuDZHLnXiAzFuMfY96w==";
+const addMealApi = "https://babadb20221229134825.azurewebsites.net/api/AddOrderedMeal?code=oh2vuX4bWjBriRFJ1x4AM7fsPRRjjLvkh6GykcsD7A9uAzFueEmu2Q==";
+const clearManualOrderApi = "https://babadb20221229134825.azurewebsites.net/api/CleanOrderedMeal?code=usWegChCY-GhzeA_keoymAB6Ka2vaXiTBDLLwAsuq0NvAzFuU0W_0w==";
 
 function ReceiptForm() {
   const [image, setImage] = useState(null);
@@ -31,6 +33,9 @@ function ReceiptForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Clear ManualOrderApi, so the manual cost distribution will take into account only the latest receipt
+    await axios.get(clearManualOrderApi);
 
     setStatus(true);
     setError(false);
@@ -72,6 +77,13 @@ function ReceiptForm() {
           TransactionTime: result.fields.TransactionTime,
         }
 
+        // Update ManualOrder table with details from receipt, in order to manually distribute the cost
+        for (let i = 0; i < Receipt.Items.values.length; i++) {
+          var nameOfMeal = Receipt.Items.values[i].properties.Description.value;
+          var priceOfMeal = Receipt.Items.values[i].properties.TotalPrice.value;
+          await axios.get(addMealApi + "&price=" + priceOfMeal + "&meal=" + nameOfMeal);
+        }
+
         setItems(Receipt);
         setStatus(false);
       } else {
@@ -99,7 +111,7 @@ function ReceiptForm() {
           <p>Kolicina: {item.properties.Quantity.content}</p>
           <p>Cena: {item.properties.Price.content}</p>
           <p>Ukupno: {item.properties.TotalPrice.content}</p>
-          <hr align='center' />
+          <hr align='center'/>
         </div>
       )) : <div></div>
       }
