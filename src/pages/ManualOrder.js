@@ -91,9 +91,7 @@ function ViewOrder() {
   }
 
   return (
-
     <Container className="ViewOrderForm p-3">
-      <h1 className="mb-3">View current order</h1>
       <Form className='ViewOrderForm' onSubmit={loadOptions}>
         <br/>
         <Table className='table styled-table'>
@@ -117,16 +115,16 @@ function ViewOrder() {
           <tr>
             <th>Meal Name</th>
             <th>Meal Price</th>
-            <th><input type="string" id="customerName1" className="input"/></th>
-            <th><input type="string" id="customerName2" className="input"/></th>
-            <th><input type="string" id="customerName3" className="input"/></th>
-            <th><input type="string" id="customerName4" className="input"/></th>
-            <th><input type="string" id="customerName5" className="input"/></th>
-            <th><input type="string" id="customerName6" className="input"/></th>
-            <th><input type="string" id="customerName7" className="input"/></th>
-            <th><input type="string" id="customerName8" className="input"/></th>
-            <th><input type="string" id="customerName9" className="input"/></th>
-            <th><input type="string" id="customerName10" className="input"/></th>
+            <th><input type="string" id="customerName1" placeholder='Customer 1' className="input"/></th>
+            <th><input type="string" id="customerName2" placeholder='Customer 2' className="input"/></th>
+            <th><input type="string" id="customerName3" placeholder='Customer 3' className="input"/></th>
+            <th><input type="string" id="customerName4" placeholder='Customer 4' className="input"/></th>
+            <th><input type="string" id="customerName5" placeholder='Customer 5' className="input"/></th>
+            <th><input type="string" id="customerName6" placeholder='Customer 6' className="input"/></th>
+            <th><input type="string" id="customerName7" placeholder='Customer 7' className="input"/></th>
+            <th><input type="string" id="customerName8" placeholder='Customer 8' className="input"/></th>
+            <th><input type="string" id="customerName9" placeholder='Customer 9' className="input"/></th>
+            <th><input type="string" id="customerName10" placeholder='Customer 10' className="input"/></th>
           </tr>
           {order && order.length > 0 ? order.map((item) => (
           <tr>
@@ -146,7 +144,7 @@ function ViewOrder() {
           ), uniqueID=1) : <div></div>
         }
         </table>
-        <button className="rgbButton">Load</button>
+        <button className="rgbButton">Load order</button>
       </Form>
     </Container>
   );
