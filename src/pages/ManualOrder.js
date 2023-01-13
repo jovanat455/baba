@@ -7,32 +7,59 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 
-const viewOrderApi = "https://babadb20221229134825.azurewebsites.net/api/GetOrderedMeals?code=QDSnUB6KCaBplqPsnWvwg-2DhkGfoi1DA_ncvBrhA9N-AzFufGdRMQ==";
-
+const viewOrderApi = "https://babadb20221229134825.azurewebsites.net/api/GetOrderedMeals?code=QDSnUB6KCaBplqPsnWvwg-2DhkGfoi1DA_ncvBrhA9N-AzFufGdRMQ==&StringCorrect=1";
+const getAllOrders = "https://babadb20221229134825.azurewebsites.net/api/GetAllActivetOrders?code=YPa88ZCdXF1jwWP7rGQFb7ecUy5Opw-YayM2nMS31pbGAzFu1DBOdg==&StringCorrect=1"
 var uniqueID = 1;
 var customersPrice = 0;
+var customersIds = [];
+var allItems = [];
 
 function ViewOrder() {
   const [order, setOrders] = useState(null);
+  const [user, setUsers] = useState(null);
   const [orderLoaded, setOrderLoaded] = useState(false);
-
+  
   const loadOptions = async (event) => {
     if (!orderLoaded) {
       event.preventDefault();
 
       let orders = await axios.get(viewOrderApi);
+      let users = await axios.get(getAllOrders);
+      
       setOrders(orders.data);
+      setUsers(users.data);
 
       setOrderLoaded(true);
     }
   }
 
-  function CalculatePerPerson(table, totalOrders, customerNumber) {
+  const insertOrderData = () => {
+    //check if lists are not empty
+    for(let i = 0; i < user.length; i++){
+      let userName = user[i].Name;
+      let userMeals = user[i].OrderedItems;
+      for(let j = 0; j < userMeals.length; j++){
+        let mealName = userMeals[j].MealName;
+        let mealAmount = userMeals[j].Amount;
+        let elementId = userName + '_' + mealName;
+        let targetElement = document.getElementById(elementId);
+        if(targetElement){
+          targetElement.value = mealAmount;
+        }
+
+      }
+    }
+    
+    calculateReceipt()
+  }
+
+  function CalculatePerPerson(table, totalOrders, userID) {
     var sum = 0;
     for (var i = 1; i < table.rows.length; i++) {
         var totalArticalPrice = parseFloat(table.rows[i].cells[1].innerHTML);
+        var itemName = table.rows[i].cells[0].innerHTML;
         var totalQuantity = totalOrders[i];
-        var customerQuantity = parseFloat(document.getElementById("customer".concat(customerNumber).concat(i)).value)
+        var customerQuantity = parseFloat(document.getElementById(userID + '_' + itemName).value)
         if (totalQuantity > 0) {
             sum = sum + totalArticalPrice * customerQuantity / totalQuantity;
         }
@@ -42,52 +69,58 @@ function ViewOrder() {
     return parseInt(sum);
   }
 
+  const setCustomersIds = () =>{
+    let i =0;
+    let customers = [];
+    user.forEach(element => {
+      customers[i++] = element.Name;
+    });
+    return customers;
+  }
+
+  const setAllItems = () =>{
+    let i =0;
+    let orders = [];
+    order.forEach(element => {
+      orders[i++] = element.Name;
+    });
+    return orders;
+  }
+
   const calculateReceipt = async(event) => {
     var table = document.getElementById("table"),
     totalPrice = 0, totalOrder = 0, totalOrders = [],
-    customer1 = 0, customer2 = 0, customer3 = 0, customer4 = 0, customer5 = 0,
-    customer6 = 0, customer7 = 0, customer8 = 0, customer9 = 0, customer10 = 0,
     i, j;
 
     customersPrice = 0;
+    
+    customersIds = setCustomersIds();
+    allItems = setAllItems();
 
     for (i = 1; i < table.rows.length; i++) {
         totalPrice = totalPrice + parseFloat(table.rows[i].cells[1].innerHTML);
     }
 
     totalOrders.push(totalOrder);
-    for (i = 1; i < table.rows.length; i++) {
-        let row = table.rows[i];
-        for (j = 2; j < row.cells.length; j++) {
-              totalOrder = totalOrder + parseFloat(document.getElementById("customer".concat(j-1).concat(i)).value);
+    for (i = 0; i < allItems.length; i++) {
+
+        for (let k = 0; k < customersIds.length; k++) {
+          let x  =customersIds[k] + '_' + allItems[i];
+          let y = document.getElementById(x);
+          totalOrder = totalOrder + parseFloat(document.getElementById(customersIds[k] + '_' + allItems[i]).value);
         }
         totalOrders.push(totalOrder);
         totalOrder = 0;
     }
 
-    customer1 = CalculatePerPerson(table, totalOrders, 1);
-    customer2 = CalculatePerPerson(table, totalOrders, 2);
-    customer3 = CalculatePerPerson(table, totalOrders, 3);
-    customer4 = CalculatePerPerson(table, totalOrders, 4);
-    customer5 = CalculatePerPerson(table, totalOrders, 5);
-    customer6 = CalculatePerPerson(table, totalOrders, 6);
-    customer7 = CalculatePerPerson(table, totalOrders, 7);
-    customer8 = CalculatePerPerson(table, totalOrders, 8);
-    customer9 = CalculatePerPerson(table, totalOrders, 9);
-    customer10 = CalculatePerPerson(table, totalOrders, 10);
+    customersIds.forEach(user => {
+      var price = CalculatePerPerson(table, totalOrders, user);
+      document.getElementById(user.concat('_ID_place')).innerHTML = document.getElementById(user.concat('_ID_place')).getAttribute('name') + " = " + price;
+    });
 
     document.getElementById("priceFromCustomers").innerHTML = "Customers = " + customersPrice;
     document.getElementById("totalPrice").innerHTML = "Total = " + totalPrice;
-    document.getElementById("priceForCustomer1").innerHTML = document.getElementById("customerName1").value + " = " + customer1;
-    document.getElementById("priceForCustomer2").innerHTML = document.getElementById("customerName2").value + " = " + customer2;
-    document.getElementById("priceForCustomer3").innerHTML = document.getElementById("customerName3").value + " = " + customer3;
-    document.getElementById("priceForCustomer4").innerHTML = document.getElementById("customerName4").value + " = " + customer4;
-    document.getElementById("priceForCustomer5").innerHTML = document.getElementById("customerName5").value + " = " + customer5;
-    document.getElementById("priceForCustomer6").innerHTML = document.getElementById("customerName6").value + " = " + customer6;
-    document.getElementById("priceForCustomer7").innerHTML = document.getElementById("customerName7").value + " = " + customer7;
-    document.getElementById("priceForCustomer8").innerHTML = document.getElementById("customerName8").value + " = " + customer8;
-    document.getElementById("priceForCustomer9").innerHTML = document.getElementById("customerName9").value + " = " + customer9;
-    document.getElementById("priceForCustomer10").innerHTML = document.getElementById("customerName10").value + " = " + customer10;
+    
   }
 
   return (
@@ -98,16 +131,12 @@ function ViewOrder() {
           <Row>
             <Col id="priceFromCustomers">Customers total</Col>
             <Col id="totalPrice">Total</Col>
-            <Col id="priceForCustomer1">1</Col>
-            <Col id="priceForCustomer2">2</Col>
-            <Col id="priceForCustomer3">3</Col>
-            <Col id="priceForCustomer4">4</Col>
-            <Col id="priceForCustomer5">5</Col>
-            <Col id="priceForCustomer6">6</Col>
-            <Col id="priceForCustomer7">7</Col>
-            <Col id="priceForCustomer8">8</Col>
-            <Col id="priceForCustomer9">9</Col>
-            <Col id="priceForCustomer10">10</Col>
+            {user && user.length > 0 ? user.map((item) => (
+            <Col id={item.Name + '_ID_place'} name={item.Name}>{item.Name}</Col>
+            
+          ), uniqueID=2) : <div></div>
+        }
+            
           </Row>
         </Table>
         <br/>
@@ -115,38 +144,37 @@ function ViewOrder() {
           <tr>
             <th>Meal Name</th>
             <th>Meal Price</th>
-            <th><input type="string" id="customerName1" placeholder='Customer 1' className="input"/></th>
-            <th><input type="string" id="customerName2" placeholder='Customer 2' className="input"/></th>
-            <th><input type="string" id="customerName3" placeholder='Customer 3' className="input"/></th>
-            <th><input type="string" id="customerName4" placeholder='Customer 4' className="input"/></th>
-            <th><input type="string" id="customerName5" placeholder='Customer 5' className="input"/></th>
-            <th><input type="string" id="customerName6" placeholder='Customer 6' className="input"/></th>
-            <th><input type="string" id="customerName7" placeholder='Customer 7' className="input"/></th>
-            <th><input type="string" id="customerName8" placeholder='Customer 8' className="input"/></th>
-            <th><input type="string" id="customerName9" placeholder='Customer 9' className="input"/></th>
-            <th><input type="string" id="customerName10" placeholder='Customer 10' className="input"/></th>
+            {user && user.length > 0 ? user.map((item) => (
+              
+            <th><input placeholder={item.Name} id={item.Name + "_ID1"} className="input"/></th>
+            
+          )) : <div></div>
+        }
           </tr>
           {order && order.length > 0 ? order.map((item) => (
+          
           <tr>
-            <td>{item.Name}</td>
+            <td id={item.Name}>{item.Name}</td>
             <td>{item.Price}</td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer1" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer2" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer3" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer4" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer5" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer6" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer7" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer8" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer9" + uniqueID} className="input"/></td>
-            <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={"customer10" + uniqueID++} className="input"/></td>
+            {user && user.length > 0 ? user.map((u) => (
+              
+              <td><input type="number" min="0" max="5" defaultValue={0} onChange={calculateReceipt} id={u.Name + "_" + item.Name} className="input"/></td>
+           
+            )) : <div></div>
+          }
+
+            
           </tr>
-          ), uniqueID=1) : <div></div>
+          )) : <div></div>
         }
         </table>
         <button className="rgbButton">Load order</button>
+        
       </Form>
+      <br/>
+      <button className="rgbButton" onClick={insertOrderData} disabled={!orderLoaded} >Load meals</button>
     </Container>
+    
   );
 }
 
