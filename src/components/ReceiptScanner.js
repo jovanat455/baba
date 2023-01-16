@@ -111,18 +111,18 @@ function ReceiptForm() {
           <p>Kolicina: {item.properties.Quantity.content}</p>
           <p>Cena: {item.properties.Price.content}</p>
           <p>Ukupno: {item.properties.TotalPrice.content}</p>
-          <hr align='center'/>
+          <hr align='center' />
         </div>
       )) : <div></div>
       }
       {isProcessed ? <Image src={`${process.env.PUBLIC_URL}/assets/images/baba-loading.gif`} className="loader" alt="Baba loading..." /> : <div></div>}
       <Form onSubmit={handleSubmit} className='p-3'>
-        <input type="file" name="file" id="file" class="inputfile" onChange={handleChange} hidden/>
-        <br/>
-        <label for="file"><div className="rgbButton">Choose a file</div></label>
-        <br/><br/>
+        <input type="file" name="file" id="file" className="inputfile" onChange={handleChange} hidden />
+        <br />
+        <label htmlFor="file"><div className="rgbButton">Choose a file</div></label>
+        <br /><br />
         <div className='textBox'>Selected file <div id="fileList"></div></div>
-        <br/>
+        <br />
         <button className="rgbButton mt-3">Submit</button>
       </Form>
 
